@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                git 'https://github.com/jagkush/jenkins_ci_cd.git'
+                git branch: 'main ', url: 'https://github.com/jagkush/jenkins_ci_cd.git'
             }
         }
 
