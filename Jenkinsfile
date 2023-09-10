@@ -1,7 +1,8 @@
 pipeline {
+
     environment {
-        dockerimaagename = "jagkush/react-app"
-        dockerimage = ""
+        dockerimagename = "jagkush/react-app"
+        dockerImage = ""
     }
 
     agent any
@@ -17,7 +18,7 @@ pipeline {
         stage('Build image') {
             steps{
                 script {
-                    dockerImage = docker.build dockerimaagename
+                    dockerImage = docker.build dockerimagename
                 }
             }
         }
@@ -31,8 +32,8 @@ pipeline {
                 script {
                     docker.withRegistry(
                         'https://registry.hub.docker.com', 
-                        registryCredential
-                    ){
+                        registryCredential 
+                    ) {
                         dockerImage.push("latest")
                     }
                 }
@@ -43,7 +44,7 @@ pipeline {
             steps{
                 script {
                     KubernetesDeploy(
-                        "deployment.yaml", "service.yaml"
+                        configs: "deployment.yaml", "service.yaml"
                     )
                 }
             }
