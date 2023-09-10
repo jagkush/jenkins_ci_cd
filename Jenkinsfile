@@ -16,7 +16,7 @@ pipeline {
 
 
         stage('Build image') {
-            steps{
+            steps {
                 script {
                     dockerImage = docker.build dockerimagename + ":$BUILD_NUMBER"
                 }
@@ -28,7 +28,7 @@ pipeline {
             environment {
                 registryCredential = 'dockerhub-cred'
             }
-            steps{
+            steps {
                 script {
                     docker.withRegistry(
                         'https://registry.hub.docker.com', 
@@ -41,7 +41,7 @@ pipeline {
         }
 
         stage('Deploying React.js container to Kubernetes') {
-            steps{
+            steps {
                 script {
                     KubernetesDeploy(
                         configs: "deployment.yaml", "service.yaml"
